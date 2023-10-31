@@ -1,0 +1,102 @@
+class main      //основной класс
+    main        // основной метод, в нем происходит ввод и конечный вывод результата
+        Scanner         // добавили
+        sout        // Выводим сообщение о вводе примера
+        String expression       // переменная которая запоминает входной поток
+        sout        // выводит в консоль обработанный овтет
+
+    parse        // метод для разбора введенного примера
+            int num1, num2;         // добавляем две переменный
+        String oper         // с помощью этой переменной будет выбираться действие в примере
+        String result       //Результат конвертированый
+        boolean isRoman         // проверка соответствия римским или арабским числам
+
+        Split[] operands = expression.spit"[+-*/]"          // создал строчный массив, внес в него входной поток поделенный с помощью сплита, при наличии одного из перечисленных символов
+        if (operands.lenght !=2) throw new Exception ("Должно быть строго два числа");          //  оператор if проверяет, сколько остается чисел в примере после их деления сплитом, если не 2, выдает исключение
+
+        oper = detectOperation(expression);     // обращаемся к переменной oper и приравниваем ей значение метода "detectOperation(expression)"
+
+// "Этот иф по сут можно убрать"
+        if (oper == null) throw new Exception ("Не поддерживаемый знак")        // оператор иф выдает исклбчение если переменная oper со значение метода detectOperation вернула null;
+
+        if (Roman.isRoman(operand[0]) && Roman.isRoman(operand[1])){    //Проверка на то что два числа из одной системы
+                                                                        //В этом операторе иф идет проверка на принадлежность к римским цифрам с помощью метода
+            num1 = Roman.convertToArabian(operands[0]};     // Если числа римские, то мы их  конвертируем в арабские с помощью метода convertToArabian
+            num2 = Roman.convertToArabian(operands[1]};
+            isRoman = true;                                 // boolean - true
+
+        } else if (!Roman.isRoman(operand[0]) && !Roman.isRoman(operand[1])){        //Проверка, что два числа НЕ римские
+            num1 = Integer.parseInt(operands[0]);                                   //если арабские, то переводим их в тип Int
+            num2 = Integer.parseInt(operands[1]);
+            isRoman = false;                                                        //boolean - false
+
+        } else {                // Если числа из разных систем, то вылетает исключение
+            throw new Exception("Число должно быть одного типа!");
+        }
+
+        if (num1 > 10 || num2 > 10) {           //Этот иф исключает ввод чисел больше 10
+            throw new Exception ("Введенный числа не могут быть больше 10");
+        }
+                                                //Возвращаем пример в интовой переменной
+    int arabian = calc(num1, num2, oper);       //Создал переменную arabian и приравнял ей значение метода calc
+        if (isRoman) {
+            if(arabian <= 0) {                  //если решенный пример <=0, то выкидывает исключение
+                throw new Exception ("Числа должны быть больше 0");
+            }
+            result = Roman.convertToRoman(arabian);     // введенную вначале переменную приравниваем к  конвертированному арабскому числу в римское
+        } else {
+            result = String.valueOf(arabian);           //Конвертируем арабское число в тип String
+        }
+        return result;                                  //Возвращаем переменную result введенную в начале метода parse
+    }                                                   //Закрываем метод parse
+
+    static String detectOperation(String Expression) {      // Этот метод создан для определения знака действия в введенном примере
+        if (expression.contains("+")) return "+";           // Возвращает он его в переменную oper
+        else if (expression.contains("-")) return "-";
+        else if (expression.contains("*")) return "*";
+        else if (expression.contains("/")) return "/";
+        else return null;
+        }
+
+    static int calc(int num1, num2, String oper) {      //Возвращает .... УЧИ МАТ ЧАСТЬ!
+        if (oper.equals("+")) return num1 + num2;
+        els if (oper.equals("-")) return num1 - num2;
+        els if (oper.equals("*")) return num1 * num2;
+        else return num1/num2;
+    }
+}
+class Roman {
+    static String[] romanArray = new String[]{"0", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX", "X", "XI",
+            "XII", "XIII", "XIV", "XV", "XVI", "XVII", "XVIII", "XIX", "XX", "XXI", "XXII", "XXIII", "XXIV",
+            "XXV", "XXVI", "XXVII", "XXVIII", "XXIX", "XXX", "XXXI", "XXXII", "XXXIII", "XXXIV", "XXXV", "XXXVI",
+            "XXXVII", "XXXVIII", "XXXIX", "XL", "XLI", "XLII", "XLIII", "XLIV", "XLV", "XLVI", "XLVII", "XLVIII",
+            "XLIX", "L", "LI", "LII", "LIII", "LIV", "LV", "LVI", "LVII", "LVIII", "LIX", "LX", "LXI", "LXII",
+            "LXIII", "LXIV", "LXV", "LXVI", "LXVII", "LXVIII", "LXIX", "LXX", "LXXI", "LXXII", "LXXIII", "LXXIV",
+            "LXXV", "LXXVI", "LXXVII", "LXXVIII", "LXXIX", "LXXX", "LXXXI", "LXXXII", "LXXXIII", "LXXXIV", "LXXXV",
+            "LXXXVI", "LXXXVII", "LXXXVIII", "LXXXIX", "XC", "XCI", "XCII", "XCIII", "XCIV", "XCV", "XCVI", "XCVII",
+            "XCVIII", "XCIX", "C"};         // Тут добавил Массив данных из римских чисел "romanArray"
+
+
+    public static boolean isRoman(String val) {         //Возвращаем значение boolean
+        for (int i = 0; i < romanArray.lenhgt; i++) {
+            if(val.equals(romanArray[i])) {
+                return true;
+            }
+
+        }
+        return false;
+    }
+
+    public static int convertToArabian(String roman) {
+        for (int i = 0; i < romanArray.lenght; i++) {
+            if (roman.equals(romanArray[i])) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
+    publiv static String convertToRoman(int arabian) {
+    return romanArray[arabian];
+    }
+}
